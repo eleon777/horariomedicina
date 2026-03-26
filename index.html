@@ -3430,62 +3430,12 @@
   }
     };
 
-// ===== GENERADOR DE COLORES ÚNICOS CON MÁXIMO CONTRASTE =====
-// Usa el algoritmo de espiral de Fibonacci para colores máximamente distintos
+// ===== PALETA DE 387 COLORES ÚNICOS =====
+// Genera colores pastel distintos para cada subgrupo
 
-// Función para convertir HSV a HSL string
-function hsvToHsl(h, s, v) {
-    const hsl = { h: h };
-    hsl.l = v * (1 - s / 2);
-    if (hsl.l !== 0 && hsl.l !== 1) {
-        hsl.s = (v - hsl.l) / Math.min(hsl.l, 1 - hsl.l);
-    } else {
-        hsl.s = 0;
-    }
-    return `hsl(${hsl.h}, ${hsl.s * 100}%, ${hsl.l * 100}%)`;
-}
-
-// Generar colores usando espiral de Fibonacci (Golden Ratio)
-function generarColoresUnicos(cantidad) {
-    const colores = [];
-    const goldenRatio = (1 + Math.sqrt(5)) / 2;
-    
-    for (let i = 0; i < cantidad; i++) {
-        // Usar el ángulo áureo para distribuir uniformemente en el círculo cromático
-        const hue = (i * 360 / goldenRatio) % 360;
-        
-        // Saturación: entre 45% y 70% para colores pastel vibrantes
-        // Usar diferentes saturaciones para evitar similitudes
-        const saturation = 45 + (i % 25);
-        
-        // Luminosidad: entre 65% y 85% para colores claros y agradables
-        const lightness = 65 + (Math.sin(i) * 10);
-        
-        // Alternar entre diferentes rangos de luminosidad para más variedad
-        const finalLightness = i % 3 === 0 ? lightness : 
-                               i % 3 === 1 ? lightness + 5 : 
-                               lightness - 5;
-        
-        colores.push(`hsl(${hue}, ${saturation}%, ${Math.min(85, Math.max(60, finalLightness))}%)`);
-    }
-    
-    return colores;
-}
-
-// Mezclar los colores para evitar agrupaciones similares
-function mezclarColores(colores) {
-    const mezclados = [...colores];
-    for (let i = mezclados.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [mezclados[i], mezclados[j]] = [mezclados[j], mezclados[i]];
-    }
-    return mezclados;
-}
-
-// Generar colores únicos para cada materia + subgrupo
 const coloresUnicos = new Map();
 
-// Contar total de subgrupos
+// Contar total de subgrupos para generar colores únicos
 let totalSubgrupos = 0;
 const listaSubgrupos = [];
 
@@ -3500,23 +3450,42 @@ for (const [codigo, materia] of Object.entries(materias)) {
     }
 }
 
-// Generar colores únicos
-let coloresGenerados = generarColoresUnicos(totalSubgrupos);
-// Mezclar para mejor distribución
-coloresGenerados = mezclarColores(coloresGenerados);
-
-// Asignar color único a cada subgrupo
-listaSubgrupos.forEach((item, idx) => {
-    const key = `${item.codigo}-${item.subgrupo}`;
-    coloresUnicos.set(key, coloresGenerados[idx]);
-});
-
-// Función helper para obtener color de un subgrupo
-function obtenerColorSubgrupo(codigo, subgrupo) {
-    return coloresUnicos.get(`${codigo}-${subgrupo}`) || "#FFFFFF";
+// Función para generar colores con máximo contraste
+function generarColorUnico(indice, total) {
+    // Usar el ángulo áureo para distribuir uniformemente
+    const goldenRatio = (1 + Math.sqrt(5)) / 2;
+    const hue = (indice * 360 / goldenRatio) % 360;
+    
+    // Variar saturación entre 40% y 70%
+    const saturation = 40 + (indice % 30);
+    
+    // Variar luminosidad entre 60% y 85%
+    const lightness = 60 + (indice % 25);
+    
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
-// Mantener compatibilidad con el código existente
+// Generar colores
+for (let i = 0; i < totalSubgrupos; i++) {
+    const color = generarColorUnico(i, totalSubgrupos);
+    const item = listaSubgrupos[i];
+    const key = `${item.codigo}-${item.subgrupo}`;
+    coloresUnicos.set(key, color);
+}
+
+// Verificar que no haya colores repetidos (pequeña validación)
+const coloresSet = new Set();
+for (const color of coloresUnicos.values()) {
+    coloresSet.add(color);
+}
+
+if (coloresSet.size === totalSubgrupos) {
+    console.log(`✅ ${totalSubgrupos} colores únicos generados correctamente`);
+} else {
+    console.log(`⚠️ Se generaron ${coloresSet.size} colores únicos de ${totalSubgrupos} subgrupos`);
+}
+
+// Crear objeto coloresGrupos para compatibilidad con el código existente
 const coloresGrupos = {};
 
 for (const [codigo, materia] of Object.entries(materias)) {
@@ -3525,40 +3494,11 @@ for (const [codigo, materia] of Object.entries(materias)) {
         const grupo = String.fromCharCode(65 + i);
         for (let j = 1; j <= materia.subgrupos; j++) {
             const subgrupo = `${grupo}${j}`;
-            coloresGrupos[codigo][subgrupo] = obtenerColorSubgrupo(codigo, subgrupo);
+            coloresGrupos[codigo][subgrupo] = coloresUnicos.get(`${codigo}-${subgrupo}`);
         }
     }
 }
 
-// Función de verificación para asegurar colores distintos (opcional)
-function verificarColoresUnicos() {
-    const coloresSet = new Set();
-    let repetidos = 0;
-    
-    for (const color of coloresUnicos.values()) {
-        if (coloresSet.has(color)) {
-            repetidos++;
-        } else {
-            coloresSet.add(color);
-        }
-    }
-    
-    if (repetidos > 0) {
-        console.warn(`⚠️ Se encontraron ${repetidos} colores repetidos. Re-generando...`);
-        // Si hay repetidos, regenerar con ligeras variaciones
-        coloresGenerados = generarColoresUnicos(totalSubgrupos);
-        coloresGenerados = mezclarColores(coloresGenerados);
-        listaSubgrupos.forEach((item, idx) => {
-            const key = `${item.codigo}-${item.subgrupo}`;
-            coloresUnicos.set(key, coloresGenerados[idx]);
-        });
-    } else {
-        console.log(`✅ ${totalSubgrupos} colores únicos generados correctamente`);
-    }
-}
-
-// Ejecutar verificación
-verificarColoresUnicos();
    // Función para mostrar materias de un año
     window.mostrarMaterias = function(ano) {
         const contenedorMaterias = document.getElementById(`materias-${ano}`);
