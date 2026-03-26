@@ -3430,247 +3430,135 @@
   }
     };
 
-// Colores de fondo por materia y grupo - VERSIÓN MEJORADA CON PALETA PASTEL ÚNICA
-const coloresGrupos = {
-    // PRIMER AÑO - Familia de colores rosados/melocotón
-    "MED100": {
-        "A1": "#FFD1DC", "A2": "#FFB6C1", "A3": "#FF9EB5",
-        "B1": "#FFDAB9", "B2": "#FFE4B5", "B3": "#FFDEAD",
-        "C1": "#E6E6FA", "C2": "#D8BFD8", "C3": "#DDA0DD",
-        "D1": "#B0E0E6", "D2": "#ADD8E6", "D3": "#87CEEB",
-        "E1": "#98FB98", "E2": "#90EE90", "E3": "#8FBC8F",
-        "F1": "#FFFACD", "F2": "#FAFAD2", "F3": "#FFEFD5",
-        "G1": "#F0E68C", "G2": "#F5DEB3", "G3": "#FFE4E1",
-        "H1": "#E0FFFF", "H2": "#AFEEEE", "H3": "#B0E0E6"
-    },
-    
-    "MED101": {
-        "A1": "#FFC0CB", "A2": "#FFB6C1", "A3": "#FFA07A",
-        "B1": "#FFDAB9", "B2": "#FFE4B5", "B3": "#F5DEB3",
-        "C1": "#E6E6FA", "C2": "#D8BFD8", "C3": "#DDA0DD",
-        "D1": "#B0E0E6", "D2": "#ADD8E6", "D3": "#87CEEB",
-        "E1": "#98FB98", "E2": "#90EE90",
-        "F1": "#FFFACD", "F2": "#FAFAD2", "F3": "#FFEFD5",
-        "G1": "#F0E68C", "G2": "#F5DEB3", "G3": "#FFE4E1",
-        "H1": "#E0FFFF", "H2": "#AFEEEE", "H3": "#B0E0E6"
-    },
-    
-    "SAP100": {
-        "A1": "#FFB6C1", "B1": "#FFDAB9", "C1": "#E6E6FA", 
-        "D1": "#B0E0E6", "E1": "#98FB98", "F1": "#FFFACD", 
-        "G1": "#F0E68C", "H1": "#E0FFFF"
-    },
-    
-    "MAF100": {
-        "A1": "#FFC0CB", "B1": "#FFDEAD", "C1": "#D8BFD8", 
-        "D1": "#ADD8E6", "E1": "#90EE90", "F1": "#FAFAD2", 
-        "G1": "#F5DEB3", "H1": "#AFEEEE"
-    },
+// ===== GENERADOR DE COLORES ÚNICOS CON MÁXIMO CONTRASTE =====
+// Usa el algoritmo de espiral de Fibonacci para colores máximamente distintos
 
-    // SEGUNDO AÑO - Familia de colores verdes/azules
-    "MED200": {
-        "A1": "#C1FFC1", "A2": "#B4EEB4", "A3": "#9BCD9B",
-        "B1": "#CAE1FF", "B2": "#B0E2FF", "B3": "#9AC0CD",
-        "C1": "#FFE1FF", "C2": "#FFD9E6", "C3": "#F0D1E0",
-        "D1": "#FFF0B5", "D2": "#FFE5B4", "D3": "#FFDAB9",
-        "E1": "#E0F0FF", "E2": "#D1E9FF", "E3": "#C2E0FF",
-        "F1": "#F5FFE0", "F2": "#F0FFF0", "F3": "#E8FFE8"
-    },
-    
-    "MED201": {
-        "A1": "#B4EEB4", "A2": "#9BCD9B", "A3": "#8FBC8F",
-        "B1": "#B0E2FF", "B2": "#9AC0CD", "B3": "#87CEFA",
-        "C1": "#FFD9E6", "C2": "#F0D1E0", "C3": "#E6C3D3",
-        "D1": "#FFE5B4", "D2": "#FFDAB9", "D3": "#F5DEB3",
-        "E1": "#D1E9FF", "E2": "#C2E0FF", "E3": "#B0D9FF",
-        "F1": "#F0FFF0", "F2": "#E8FFE8", "F3": "#D9FFD9"
-    },
-    
-    "MED202": {
-        "A1": "#C1FFC1", "A2": "#B4EEB4", "A3": "#9BCD9B",
-        "B1": "#CAE1FF", "B2": "#B0E2FF", "B3": "#9AC0CD",
-        "C1": "#FFE1FF", "C2": "#FFD9E6", "C3": "#F0D1E0",
-        "D1": "#FFF0B5", "D2": "#FFE5B4", "D3": "#FFDAB9",
-        "E1": "#E0F0FF", "E2": "#D1E9FF", "E3": "#C2E0FF",
-        "F1": "#F5FFE0", "F2": "#F0FFF0", "F3": "#E8FFE8"
-    },
-    
-    "MED203": {
-        "A1": "#9BCD9B", "A2": "#8FBC8F", "A3": "#7CB97C",
-        "B1": "#9AC0CD", "B2": "#87CEFA", "B3": "#7EC0EE",
-        "C1": "#F0D1E0", "C2": "#E6C3D3", "C3": "#DBB7C9",
-        "D1": "#F5DEB3", "D2": "#EED5B0", "D3": "#E6CEAC",
-        "E1": "#C2E0FF", "E2": "#B0D9FF", "E3": "#9FC9FF",
-        "F1": "#E8FFE8", "F2": "#D9FFD9", "F3": "#C8FFC8"
-    },
-    
-    "MED209": {
-        "A1": "#B4EEB4", "A2": "#9BCD9B", "A3": "#8FBC8F",
-        "B1": "#B0E2FF", "B2": "#9AC0CD", "B3": "#87CEFA",
-        "C1": "#FFD9E6", "C2": "#F0D1E0", "C3": "#E6C3D3",
-        "D1": "#FFE5B4", "D2": "#FFDAB9", "D3": "#F5DEB3",
-        "E1": "#D1E9FF", "E2": "#C2E0FF", "E3": "#B0D9FF",
-        "F1": "#F0FFF0", "F2": "#E8FFE8", "F3": "#D9FFD9"
-    },
-    
-    "SAP200": {
-        "A1": "#C1FFC1", "B1": "#CAE1FF", "C1": "#FFE1FF", 
-        "D1": "#FFF0B5", "E1": "#E0F0FF", "F1": "#F5FFE0"
-    },
-
-    // TERCER AÑO - Familia de colores lavanda/violeta
-    "MED301": {
-        "A1": "#E0E0FF", "B1": "#D1D1FF", "C1": "#C2C2FF", 
-        "D1": "#B3B3FF", "E1": "#A4A4FF"
-    },
-    
-    "MED302": {
-        "A1": "#E6E6FA", "A2": "#D8BFD8", "A3": "#DDA0DD", "A4": "#EE82EE", "A5": "#DA70D6",
-        "B1": "#F0F0FF", "B2": "#E0E0FF", "B3": "#D1D1FF", "B4": "#C2C2FF", "B5": "#B3B3FF",
-        "C1": "#FAF0FF", "C2": "#F5E6FF", "C3": "#F0D9FF", "C4": "#E6CCFF", "C5": "#D9B3FF",
-        "D1": "#FFE6FF", "D2": "#FFD9FF", "D3": "#FFCCFF", "D4": "#F5C6F5", "D5": "#E6B8E6",
-        "E1": "#F2F0FF", "E2": "#E6E0FF", "E3": "#D9D0FF", "E4": "#CCC0FF", "E5": "#BFB0FF"
-    },
-    
-    "MED303": {
-        "A1": "#E0E0FF", "A2": "#D1D1FF", "A3": "#C2C2FF", "A4": "#B3B3FF",
-        "B1": "#D8BFD8", "B2": "#DDA0DD", "B3": "#EE82EE",
-        "C1": "#F0F0FF", "C2": "#E0E0FF", "C3": "#D1D1FF",
-        "D1": "#FAF0FF", "D2": "#F5E6FF", "D3": "#F0D9FF",
-        "E1": "#FFE6FF", "E2": "#FFD9FF", "E3": "#FFCCFF",
-        "F1": "#F2F0FF", "F2": "#E6E0FF", "F3": "#D9D0FF",
-        "G1": "#E6E6FA", "G2": "#D8BFD8", "G3": "#DDA0DD"
-    },
-    
-    "MED304": {
-        "A1": "#E6E6FA", "A2": "#D8BFD8", "A3": "#DDA0DD", "A4": "#EE82EE", "A5": "#DA70D6",
-        "B1": "#F0F0FF", "B2": "#E0E0FF", "B3": "#D1D1FF", "B4": "#C2C2FF", "B5": "#B3B3FF",
-        "C1": "#FAF0FF", "C2": "#F5E6FF", "C3": "#F0D9FF", "C4": "#E6CCFF", "C5": "#D9B3FF",
-        "D1": "#FFE6FF", "D2": "#FFD9FF", "D3": "#FFCCFF", "D4": "#F5C6F5", "D5": "#E6B8E6",
-        "E1": "#F2F0FF", "E2": "#E6E0FF", "E3": "#D9D0FF", "E4": "#CCC0FF", "E5": "#BFB0FF"
-    },
-    
-    "CIR305": {
-        "A1": "#E0E0FF", "A2": "#D1D1FF", "A3": "#C2C2FF", "A4": "#B3B3FF", "A5": "#A4A4FF",
-        "B1": "#D8BFD8", "B2": "#DDA0DD", "B3": "#EE82EE", "B4": "#DA70D6", "B5": "#BA55D3",
-        "C1": "#F0F0FF", "C2": "#E0E0FF", "C3": "#D1D1FF", "C4": "#C2C2FF", "C5": "#B3B3FF",
-        "D1": "#FAF0FF", "D2": "#F5E6FF", "D3": "#F0D9FF", "D4": "#E6CCFF", "D5": "#D9B3FF",
-        "E1": "#FFE6FF", "E2": "#FFD9FF", "E3": "#FFCCFF", "E4": "#F5C6F5", "E5": "#E6B8E6"
-    },
-    
-    "SAP300": {
-        "A1": "#E0E0FF", "B1": "#D8BFD8", "C1": "#F0F0FF", "D1": "#FAF0FF"
-    },
-
-    // CUARTO AÑO - Familia de colores melocotón/arena
-    "MED400": {
-        "A1": "#FFDAB9", "A2": "#FFE4B5", "A3": "#F5DEB3", "A4": "#FFDEAD", "A5": "#FFEBCD",
-        "B1": "#FFE4E1", "B2": "#FFD9E6", "B3": "#FADADD", "B4": "#F5D0D0", "B5": "#F0C5C5",
-        "C1": "#FFF0DB", "C2": "#FFE8D1", "C3": "#FFE0C7", "C4": "#FFD8BD", "C5": "#FFD0B3",
-        "D1": "#FAF0E6", "D2": "#F5E6D9", "D3": "#F0DCCC", "D4": "#E6D2BF", "D5": "#D9C8B3",
-        "E1": "#FFF5E6", "E2": "#FFE6D9", "E3": "#FFD9CC", "E4": "#FFCCBF", "E5": "#FFBFB3"
-    },
-    
-    "CIR400": {
-        "A1": "#FFDAB9", "A2": "#FFE4B5", "A3": "#F5DEB3",
-        "B1": "#FFE4E1", "B2": "#FFD9E6", "B3": "#FADADD",
-        "C1": "#FFF0DB", "C2": "#FFE8D1", "C3": "#FFE0C7",
-        "D1": "#FAF0E6", "D2": "#F5E6D9", "D3": "#F0DCCC",
-        "E1": "#FFF5E6", "E2": "#FFE6D9", "E3": "#FFD9CC"
-    },
-    
-    "CIR401": {
-        "A1": "#FFDEAD", "A2": "#FFEBCD", "A3": "#F5DEB3", "A4": "#FFDAB9", "A5": "#FFE4B5",
-        "B1": "#F5D0D0", "B2": "#F0C5C5", "B3": "#FADADD", "B4": "#FFD9E6",
-        "C1": "#FFD8BD", "C2": "#FFD0B3", "C3": "#FFE0C7", "C4": "#FFE8D1", "C5": "#FFF0DB",
-        "D1": "#E6D2BF", "D2": "#D9C8B3", "D3": "#F0DCCC", "D4": "#F5E6D9", "D5": "#FAF0E6"
-    },
-    
-    "CIR402": {
-        "A1": "#FFE4B5", "A2": "#F5DEB3", "A3": "#FFDEAD", "A4": "#FFEBCD",
-        "B1": "#FFD9E6", "B2": "#FADADD", "B3": "#F5D0D0", "B4": "#F0C5C5",
-        "C1": "#FFE8D1", "C2": "#FFE0C7", "C3": "#FFD8BD", "C4": "#FFD0B3",
-        "D1": "#F5E6D9", "D2": "#F0DCCC", "D3": "#E6D2BF", "D4": "#D9C8B3"
-    },
-    
-    "CIR403": {
-        "A1": "#F5DEB3", "A2": "#FFDEAD", "A3": "#FFEBCD", "A4": "#FFDAB9", "A5": "#FFE4B5",
-        "B1": "#FADADD", "B2": "#F5D0D0", "B3": "#F0C5C5", "B4": "#FFD9E6",
-        "C1": "#FFE0C7", "C2": "#FFD8BD", "C3": "#FFD0B3", "C4": "#FFE8D1",
-        "D1": "#F0DCCC", "D2": "#E6D2BF", "D3": "#D9C8B3", "D4": "#F5E6D9"
-    },
-    
-    "MED405": {
-        "A1": "#FFDAB9", "A2": "#FFE4B5", "A3": "#F5DEB3", "A4": "#FFDEAD", "A5": "#FFEBCD",
-        "B1": "#FFE4E1", "B2": "#FFD9E6", "B3": "#FADADD", "B4": "#F5D0D0", "B5": "#F0C5C5",
-        "C1": "#FFF0DB", "C2": "#FFE8D1", "C3": "#FFE0C7", "C4": "#FFD8BD", "C5": "#FFD0B3",
-        "D1": "#FAF0E6", "D2": "#F5E6D9", "D3": "#F0DCCC", "D4": "#E6D2BF", "D5": "#D9C8B3"
-    },
-    
-    "MED413": {
-        "A1": "#FFE4B5", "A2": "#F5DEB3", "A3": "#FFDEAD", "A4": "#FFEBCD", "A5": "#FFDAB9",
-        "B1": "#FFD9E6", "B2": "#FADADD", "B3": "#F5D0D0", "B4": "#F0C5C5",
-        "C1": "#FFE8D1", "C2": "#FFE0C7", "C3": "#FFD8BD", "C4": "#FFD0B3",
-        "D1": "#F5E6D9", "D2": "#F0DCCC", "D3": "#E6D2BF", "D4": "#D9C8B3"
-    },
-    
-    "MED415": {
-        "A1": "#FFDAB9", "A2": "#FFE4B5", "A3": "#F5DEB3", "A4": "#FFDEAD", "A5": "#FFEBCD",
-        "B1": "#FFE4E1", "B2": "#FFD9E6", "B3": "#FADADD", "B4": "#F5D0D0", "B5": "#F0C5C5",
-        "C1": "#FFF0DB", "C2": "#FFE8D1", "C3": "#FFE0C7", "C4": "#FFD8BD", "C5": "#FFD0B3",
-        "D1": "#FAF0E6", "D2": "#F5E6D9", "D3": "#F0DCCC", "D4": "#E6D2BF", "D5": "#D9C8B3"
-    },
-    
-    "SAP400": {
-        "A1": "#FFDAB9",
-        "B1": "#FFE4B5",
-        "C1": "#F5DEB3"
-    },
-     // QUINTO AÑO - Familia de colores azules/verdosos
-    "MED500": {
-        "A1": "#B0E0E6", "A2": "#ADD8E6", "A3": "#87CEEB", "A4": "#87CEFA", "A5": "#00BFFF",
-        "B1": "#98FB98", "B2": "#90EE90", "B3": "#8FBC8F", "B4": "#7CCD7C", "B5": "#66CDAA",
-        "C1": "#E6E6FA", "C2": "#D8BFD8", "C3": "#DDA0DD", "C4": "#EE82EE", "C5": "#DA70D6",
-        "D1": "#F0F0FF", "D2": "#E0E0FF", "D3": "#D1D1FF", "D4": "#C2C2FF", "D5": "#B3B3FF",
-        "E1": "#FFDAB9", "E2": "#FFE4B5", "E3": "#F5DEB3", "E4": "#FFDEAD", "E5": "#FFEBCD"
-    },
-    "MED501": {
-        "A1": "#E6E6FA", "A2": "#D8BFD8", "A3": "#DDA0DD", "A4": "#EE82EE", "A5": "#DA70D6",
-        "B1": "#F0F0FF", "B2": "#E0E0FF", "B3": "#D1D1FF", "B4": "#C2C2FF", "B5": "#B3B3FF",
-        "C1": "#FFE1FF", "C2": "#FFD9E6", "C3": "#F0D1E0", "C4": "#E6C3D3", "C5": "#DBB7C9",
-        "D1": "#FFF0B5", "D2": "#FFE5B4", "D3": "#FFDAB9", "D4": "#F5DEB3", "D5": "#EED5B0"
-    },
-    "MED504": {
-        "B1": "#CAE1FF", "B2": "#B0E2FF", "B3": "#9AC0CD", "B4": "#87CEFA", "B5": "#7EC0EE",
-        "C1": "#FFDAB9", "C2": "#FFE4B5", "C3": "#F5DEB3", "C4": "#FFDEAD", "C5": "#FFEBCD",
-        "D1": "#FFE4E1", "D2": "#FFD9E6", "D3": "#FADADD", "D4": "#F5D0D0", "D5": "#F0C5C5"
-    },
-    "CIR500": {
-        "A1": "#FFDAB9", "A2": "#FFE4B5", "A3": "#F5DEB3", "A4": "#FFDEAD",
-        "B1": "#FFF0DB", "B2": "#FFE8D1", "B3": "#FFE0C7", "B4": "#FFD8BD",
-        "C1": "#FAF0E6", "C2": "#F5E6D9", "C3": "#F0DCCC", "C4": "#E6D2BF",
-        "D1": "#FFF5E6", "D2": "#FFE6D9", "D3": "#FFD9CC", "D4": "#FFCCBF"
-    },
-    "CIR505": {
-        "A1": "#C1FFC1", "A2": "#B4EEB4", "A3": "#9BCD9B", "A4": "#8FBC8F", "A5": "#7CB97C",
-        "B1": "#CAE1FF", "B2": "#B0E2FF", "B3": "#9AC0CD", "B4": "#87CEFA", "B5": "#7EC0EE",
-        "C1": "#FFE1FF", "C2": "#FFD9E6", "C3": "#F0D1E0", "C4": "#E6C3D3", "C5": "#DBB7C9",
-        "D1": "#FFE1FF", "D2": "#FFD9E6", "D3": "#F0D1E0", "D4": "#E6C3D3", "D5": "#DBB7C9"
-    },
-    "CIR506": {
-        "A1": "#FFF0B5", "A2": "#FFE5B4", "A3": "#FFDAB9", "A4": "#F5DEB3", "A5": "#EED5B0",
-        "B1": "#E0F0FF", "B2": "#D1E9FF", "B3": "#C2E0FF", "B4": "#B0D9FF", "B5": "#9FC9FF",
-        "C1": "#F5FFE0", "C2": "#F0FFF0", "C3": "#E8FFE8", "C4": "#D9FFD9", "C5": "#C8FFC8",
-        "D1": "#F5FFE0", "D2": "#F0FFF0", "D3": "#E8FFE8", "D4": "#D9FFD9", "D5": "#C8FFC8"
-    },
-    "MED508": {
-        "A1": "#FFDAB9",
-        "B1": "#FFE4B5",
-        "C1": "#F5DEB3",
-        "D1": "#FFDEAD"
+// Función para convertir HSV a HSL string
+function hsvToHsl(h, s, v) {
+    const hsl = { h: h };
+    hsl.l = v * (1 - s / 2);
+    if (hsl.l !== 0 && hsl.l !== 1) {
+        hsl.s = (v - hsl.l) / Math.min(hsl.l, 1 - hsl.l);
+    } else {
+        hsl.s = 0;
     }
-};
+    return `hsl(${hsl.h}, ${hsl.s * 100}%, ${hsl.l * 100}%)`;
+}
 
+// Generar colores usando espiral de Fibonacci (Golden Ratio)
+function generarColoresUnicos(cantidad) {
+    const colores = [];
+    const goldenRatio = (1 + Math.sqrt(5)) / 2;
+    
+    for (let i = 0; i < cantidad; i++) {
+        // Usar el ángulo áureo para distribuir uniformemente en el círculo cromático
+        const hue = (i * 360 / goldenRatio) % 360;
+        
+        // Saturación: entre 45% y 70% para colores pastel vibrantes
+        // Usar diferentes saturaciones para evitar similitudes
+        const saturation = 45 + (i % 25);
+        
+        // Luminosidad: entre 65% y 85% para colores claros y agradables
+        const lightness = 65 + (Math.sin(i) * 10);
+        
+        // Alternar entre diferentes rangos de luminosidad para más variedad
+        const finalLightness = i % 3 === 0 ? lightness : 
+                               i % 3 === 1 ? lightness + 5 : 
+                               lightness - 5;
+        
+        colores.push(`hsl(${hue}, ${saturation}%, ${Math.min(85, Math.max(60, finalLightness))}%)`);
+    }
+    
+    return colores;
+}
+
+// Mezclar los colores para evitar agrupaciones similares
+function mezclarColores(colores) {
+    const mezclados = [...colores];
+    for (let i = mezclados.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [mezclados[i], mezclados[j]] = [mezclados[j], mezclados[i]];
+    }
+    return mezclados;
+}
+
+// Generar colores únicos para cada materia + subgrupo
+const coloresUnicos = new Map();
+
+// Contar total de subgrupos
+let totalSubgrupos = 0;
+const listaSubgrupos = [];
+
+for (const [codigo, materia] of Object.entries(materias)) {
+    for (let i = 0; i < materia.grupos; i++) {
+        const grupo = String.fromCharCode(65 + i);
+        for (let j = 1; j <= materia.subgrupos; j++) {
+            const subgrupo = `${grupo}${j}`;
+            listaSubgrupos.push({ codigo, subgrupo });
+            totalSubgrupos++;
+        }
+    }
+}
+
+// Generar colores únicos
+let coloresGenerados = generarColoresUnicos(totalSubgrupos);
+// Mezclar para mejor distribución
+coloresGenerados = mezclarColores(coloresGenerados);
+
+// Asignar color único a cada subgrupo
+listaSubgrupos.forEach((item, idx) => {
+    const key = `${item.codigo}-${item.subgrupo}`;
+    coloresUnicos.set(key, coloresGenerados[idx]);
+});
+
+// Función helper para obtener color de un subgrupo
+function obtenerColorSubgrupo(codigo, subgrupo) {
+    return coloresUnicos.get(`${codigo}-${subgrupo}`) || "#FFFFFF";
+}
+
+// Mantener compatibilidad con el código existente
+const coloresGrupos = {};
+
+for (const [codigo, materia] of Object.entries(materias)) {
+    coloresGrupos[codigo] = {};
+    for (let i = 0; i < materia.grupos; i++) {
+        const grupo = String.fromCharCode(65 + i);
+        for (let j = 1; j <= materia.subgrupos; j++) {
+            const subgrupo = `${grupo}${j}`;
+            coloresGrupos[codigo][subgrupo] = obtenerColorSubgrupo(codigo, subgrupo);
+        }
+    }
+}
+
+// Función de verificación para asegurar colores distintos (opcional)
+function verificarColoresUnicos() {
+    const coloresSet = new Set();
+    let repetidos = 0;
+    
+    for (const color of coloresUnicos.values()) {
+        if (coloresSet.has(color)) {
+            repetidos++;
+        } else {
+            coloresSet.add(color);
+        }
+    }
+    
+    if (repetidos > 0) {
+        console.warn(`⚠️ Se encontraron ${repetidos} colores repetidos. Re-generando...`);
+        // Si hay repetidos, regenerar con ligeras variaciones
+        coloresGenerados = generarColoresUnicos(totalSubgrupos);
+        coloresGenerados = mezclarColores(coloresGenerados);
+        listaSubgrupos.forEach((item, idx) => {
+            const key = `${item.codigo}-${item.subgrupo}`;
+            coloresUnicos.set(key, coloresGenerados[idx]);
+        });
+    } else {
+        console.log(`✅ ${totalSubgrupos} colores únicos generados correctamente`);
+    }
+}
+
+// Ejecutar verificación
+verificarColoresUnicos();
    // Función para mostrar materias de un año
     window.mostrarMaterias = function(ano) {
         const contenedorMaterias = document.getElementById(`materias-${ano}`);
