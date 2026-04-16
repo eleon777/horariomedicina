@@ -3658,7 +3658,7 @@
                         const docenteCompleto = textosPersonalizados[m.codigo]?.[m.subgrupoKey] || '';
                         const docenteResumido = obtenerNombreDocenteResumido(docenteCompleto);
                         contenido = `<strong>${m.materia}</strong><br>`;
-                        contenido += `${m.subgrupo}<br>`;
+                        contenido += `Grupo ${m.subgrupo}<br>`;
                         if (docenteResumido) contenido += `${docenteResumido}<br>`;
                         td.style.backgroundColor = coloresGrupos[m.codigo]?.[m.subgrupoKey] || "#FFFFFF";
                         filaTieneContenido = true;
